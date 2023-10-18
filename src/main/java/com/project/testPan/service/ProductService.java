@@ -39,8 +39,9 @@ public class ProductService {
         try {
             notNull(cpf, "CPF is required");
             Optional<Client> obj = repositoryClient.findByCpf(cpf);
-            return obj.orElseThrow(() -> new ObjectNotFoundException(Product.class,"Object not find. CPF: " + cpf)).getProducts().stream().toList();
-        } catch (final Exception e){
+
+            return obj.get().getProducts();
+        } catch (final Exception e) {
             throw new ProductException("Error to find CPF.");
         }
 

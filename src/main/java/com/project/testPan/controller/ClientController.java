@@ -43,7 +43,7 @@ public class ClientController {
     }
 
     @GetMapping(value = "/findByCPF/{cpf}")
-    public ResponseEntity<Client> getClientByCPF(@RequestParam String cpf){
+    public ResponseEntity<Client> getClientByCPF(@PathVariable String cpf){
         log.info("[FIND CLIENT BY CPF]   called - CPF: {}", cpf);
         return ResponseEntity.ok().body(service.findByCPF(cpf));
     }

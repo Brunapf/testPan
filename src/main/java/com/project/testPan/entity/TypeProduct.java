@@ -1,14 +1,14 @@
 package com.project.testPan.entity;
 
+import lombok.Getter;
+
+@Getter
 public enum TypeProduct {
 
-    CARTAO, EMPRESTIMO, CAPITALIZACAO, INVESTIMENTOS;
+    CARTAO(0), EMPRESTIMO(1), CAPITALIZACAO(2), INVESTIMENTOS(3);
 
-//    private final int valor;
-//    TypeProduct(int value){
-//        valor = value;
-//    }
-//    public int getValor(){
-//        return valor;
-//    }
+    private final int valor;
+    TypeProduct(int value){
+        valor = value;
+    }
 }

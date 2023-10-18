@@ -42,8 +42,8 @@ public class ProductController {
         return ResponseEntity.ok().body(service.update(product, id));
     }
 
-    @GetMapping(value = "/findByCPF")
-    public ResponseEntity<List<Product>> getProductByCPF(@RequestParam String cpf){
+    @GetMapping(value = "/findByCPF/{cpf}")
+    public ResponseEntity<List<Product>> getProductByCPF(@PathVariable String cpf){
         log.info("[FIND PRODUCT BY CPF]   called - cpf: {}", cpf);
         return ResponseEntity.ok().body(service.findByCPF(cpf));
     }

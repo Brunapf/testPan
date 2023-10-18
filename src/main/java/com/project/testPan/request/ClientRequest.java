@@ -1,6 +1,5 @@
 package com.project.testPan.request;
 
-import com.project.testPan.entity.Address;
 import com.project.testPan.entity.Product;
 import com.project.testPan.entity.Status;
 import lombok.AllArgsConstructor;
@@ -19,6 +18,10 @@ public class ClientRequest implements Serializable {
     private String name;
     private String cpf;
     private transient List<Product> products;
-    private transient Address address;
     private Status status;
+    private String cep;
+    private String nameStreet;
+    private Integer numberStreet;
+    private String neighborhood;
+    private String city;
 }

@@ -1,5 +1,6 @@
 package com.project.testPan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,13 +24,16 @@ public class Client implements Serializable {
     private String name;
     private String cpf;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "client_product",
     joinColumns = {@JoinColumn(name = "client_id")},
     inverseJoinColumns = {@JoinColumn(name = "product_id")})
     private List<Product> products;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
+    private String cep;
+    private String nameStreet;
+    private Integer numberStreet;
+    private String neighborhood;
     private Status status;
+    private String city;
+
 }

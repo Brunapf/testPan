@@ -1,5 +1,6 @@
 package com.project.testPan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class Product {
     private String name;
     private TypeProduct type;
     private Status status;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<Client> clients;
 }

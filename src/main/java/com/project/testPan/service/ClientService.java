@@ -7,6 +7,7 @@ import com.project.testPan.repository.ProductRepository;
 import com.project.testPan.request.ClientRequest;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ClientService {
         Optional<Client> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(Client.class,"Objeto não encontrado! ID: " + id));
     }
-
+    @Cacheable("clients")
     public List<Client> getAll(){
         return repository.findAll();
     }

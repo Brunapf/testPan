@@ -8,6 +8,7 @@ import com.project.testPan.repository.ProductRepository;
 import com.project.testPan.request.ProductRequest;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class ProductService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(Product.class,"Object not find. Id: " + id));
 
     }
-
+    @Cacheable("products")
     public List<Product> getAll(){
         return repository.findAll();
     }

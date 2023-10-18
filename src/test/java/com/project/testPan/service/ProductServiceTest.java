@@ -6,8 +6,6 @@ import com.project.testPan.entity.Status;
 import com.project.testPan.entity.TypeProduct;
 import com.project.testPan.excetion.ProductException;
 import com.project.testPan.repository.ClientRepository;
-import com.project.testPan.repository.ProductRepository;
-import com.project.testPan.request.ProductRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,8 +31,6 @@ public class ProductServiceTest {
     @InjectMocks
     ProductService service;
 
-    @Mock
-    ProductRepository repository;
 
     @Mock
     ClientRepository repositoryClient;
@@ -45,21 +41,6 @@ public class ProductServiceTest {
         product = Product.builder().id(1L).name("CREDITO MASTER").status(Status.ACTIVE).type(TypeProduct.CARTAO).build();
         client = Client.builder().id(1L).cpf("123456789101").products(List.of(product)).build();
     }
-
-//    @Test
-//    void create(){
-//        when(repository.save(product)).thenReturn(product);
-//
-//        Product prod = service.create(ProductRequest.builder()
-//                .name(product.getName())
-//                .clients(product.getClients())
-//                .type(product.getType())
-//                .status(product.getStatus())
-//                .build());
-//
-//        assertEquals(prod,product);
-//
-//    }
 
     @Test
     void findProductByCPFWithSuccess(){

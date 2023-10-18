@@ -41,7 +41,7 @@ public class ClientService {
         if(null != clientRequest.getCep()){
             validateAddress(clientRequest, saveClient);
         }
-        if(!clientRequest.getProducts().isEmpty()){
+        if(null != clientRequest.getProducts()){
             validateProduct(clientRequest, saveClient);
         }
 
@@ -70,6 +70,7 @@ public class ClientService {
     private void validateAddress(ClientRequest client, Client saveClient) {
         EnderecoCep address = cepFeign.findAddressByCep(client.getCep());
         if(address != null){
+            saveClient.setCep(address.getCep());
             saveClient.setNameStreet(address.getLogradouro());
             saveClient.setNeighborhood(address.getBairro());
             saveClient.setCity(address.getLocalidade());
@@ -104,7 +105,7 @@ public class ClientService {
                         if(null != client.getCep()){
                             validateAddress(client, newProduct);
                         }
-                        if(!client.getProducts().isEmpty()){
+                        if(null != client.getProducts()){
                             validateProduct(client, newProduct);
                         }
                         repository.save(newProduct);

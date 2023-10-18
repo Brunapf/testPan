@@ -19,13 +19,3 @@ Para rodar o sistema execute os comandos abaixo na pasta raiz do projeto.
 ```sh
 mvn clean install
 ```
-
-### Sonarqube 
-
-Acesse o Sonar pelo endereço:
-
-> http://localhost:9000
-
-Usuário e senha padrão: 
-
-> admin

@@ -2,7 +2,6 @@ package com.project.testPan.service;
 
 import com.project.testPan.entity.Address;
 import com.project.testPan.excetion.AddressException;
-import com.project.testPan.excetion.ProductException;
 import com.project.testPan.repository.AddressRepository;
 import com.project.testPan.repository.feign.CepFeign;
 import com.project.testPan.repository.feign.CitytFeign;
@@ -12,6 +11,7 @@ import com.project.testPan.response.EnderecoCep;
 import com.project.testPan.entity.Client;
 import com.project.testPan.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +26,13 @@ public class AddressService {
     private final CepFeign cepFeign;
     private final StateFeign stateFeign;
     private final CitytFeign citytFeign;
-    public Address create(AddressRequest client){
+    public Address create(AddressRequest addressRequest){
         return repository.save(
                 Address.builder()
-                .state(client.getState())
-                .name(client.getName())
-                .country(client.getCountry())
-                .number(client.getNumber())
+                .state(addressRequest.getState())
+                .name(addressRequest.getName())
+                .country(addressRequest.getCountry())
+                .number(addressRequest.getNumber())
                 .build()
         );
     }
@@ -45,19 +45,20 @@ public class AddressService {
     public EnderecoCep findAddressByCep(String cep){
         return cepFeign.findAddressByCep(cep);
     }
+    @Cacheable("address")
     public List<Address> getAll(){
         return repository.findAll();
     }
 
-    public Address update(AddressRequest client){
+    public Address update(AddressRequest addressRequest){
         try {
-            Optional<Address> cli = repository.findById(client.getId());
-            updateClient(cli,
+            Optional<Address> cli = repository.findById(addressRequest.getId());
+            updateAddress(cli,
                     Address.builder()
-                            .state(client.getState())
-                            .name(client.getName())
-                            .country(client.getCountry())
-                            .number(client.getNumber())
+                            .state(addressRequest.getState())
+                            .name(addressRequest.getName())
+                            .country(addressRequest.getCountry())
+                            .number(addressRequest.getNumber())
                             .build()
             );
             return repository.save(cli.get());
@@ -67,15 +68,15 @@ public class AddressService {
 
     }
 
-    private void updateClient(Optional<Address> cli, Address client) {
-        cli.get().setName(client.getName());
+    private void updateAddress(Optional<Address> cli, Address address) {
+        cli.get().setName(address.getName());
     }
 
-
+    @Cacheable("states")
     public Object findStates() {
         return stateFeign.findStates();
     }
-
+    @Cacheable("citys")
     public Object findCityByIdUF(String id) {
         return citytFeign.findCityByUF(id);
     }

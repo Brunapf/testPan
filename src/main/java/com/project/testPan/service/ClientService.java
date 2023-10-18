@@ -83,8 +83,13 @@ public class ClientService {
     }
 
     public Client findById(Long id) {
-        Optional<Client> obj = repository.findById(id);
-        return obj.get();
+        try {
+            Optional<Client> obj = repository.findById(id);
+            return obj.orElseThrow(() -> new ObjectNotFoundException(Product.class,"Not found "));
+
+        } catch (Exception e){
+            throw new ProductException("Error in find of client");
+        }
     }
     @Cacheable("clients")
     public List<Client> getAll(){

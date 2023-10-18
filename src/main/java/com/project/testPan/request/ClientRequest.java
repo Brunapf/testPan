@@ -17,7 +17,7 @@ public class ClientRequest implements Serializable {
     private Long id;
     private String name;
     private String cpf;
-    private transient List<Product> products;
+    private List<Product> products;
     private Status status;
     private String cep;
     private String nameStreet;
